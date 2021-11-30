@@ -21,13 +21,15 @@ for item in product:
 for ref in productlist:
     r = requests.get(ref, headers=headers)
     soup = BeautifulSoup(r.content, 'lxml')
-    name = soup.find('h2', class_='product-name').text.strip()
-    avl = soup.find('span', class_='delivery-time').get('title').replace('Delivery time: ',"")
-    part = soup.find(itemprop = 'mpn').get('content')
-    aux = soup.find('div',class_="product-items").find_all('li')[2]
-    cond = aux.text.strip().replace("Condition: ","")
-   
-    #PRICE -- mb itmprop? 28/11
-    price = soup.find('span', class_="".text.strip)
-    print(price)
     
+    name = soup.find('h2', class_ = 'product-name').text.strip()
+    
+    avl = soup.find('span', class_ = 'delivery-time').get('title').replace('Delivery time: ',"")
+    
+    part = soup.find(itemprop = 'mpn').get('content')
+    
+    auxcond = soup.find('div',class_ = "product-items").find_all('li')[2]
+    cond = auxcond.text.strip().replace("Condition: ","")
+    
+    price = soup.find('meta', itemprop = 'price')
+    print("$"+price['content'] if price else "$None")
