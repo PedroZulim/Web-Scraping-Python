@@ -12,10 +12,10 @@ url='https://sarasotaavionics.com/'
 
 headers = {'User_Agent' : 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/72.0.3626.121 Safari/537.36'}
 
-productlist=[]
-produtolist=[]
+productlist = []
+produtolist = []
 
-r = requests.get('https://sarasotaavionics.com/category/autopilots?s=300')
+r = requests.get('https://sarasotaavionics.com/category/autopilots?s=30')
 soup = BeautifulSoup(r.content,'lxml')
 
 product = soup.find_all('h4', class_='product-name')
@@ -41,12 +41,23 @@ for ref in productlist:
     price = soup.find('meta', itemprop = 'price')
     auxprice = funcprice(price)
     
+    test = []
+    optionlist = []
+    option = soup.find_all('option', value = True)
+    for option in option:
+        optionlist.append(option.text.strip())
+    if optionlist:
+        test = optionlist[1:]
+    else:
+        test = "N/A"
+
     produto = {
         'Name' : name,
         'Aviability' : avl,
         'Part_No' : part,
         'Condition' : cond,
-        'Price' : auxprice
+        'Price' : auxprice,
+        'Options' : test
     }
     produtolist.append(produto)
         
