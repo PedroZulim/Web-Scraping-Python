@@ -47,7 +47,7 @@ for ref in productlist:
     for option in option:
         optionlist.append(option.text.strip())
     if optionlist:
-        test = (';'.join(optionlist[1:]))
+        test = (';'.join(optionlist))
     else:
         test = "N/A"
 
