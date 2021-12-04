@@ -15,7 +15,7 @@ headers = {'User_Agent' : 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.
 productlist = []
 produtolist = []
 
-r = requests.get('https://sarasotaavionics.com/category/autopilots?s=30')
+r = requests.get('https://sarasotaavionics.com/category/autopilots?s=300')
 soup = BeautifulSoup(r.content,'lxml')
 
 product = soup.find_all('h4', class_='product-name')
@@ -47,7 +47,7 @@ for ref in productlist:
     for option in option:
         optionlist.append(option.text.strip())
     if optionlist:
-        test = optionlist[1:]
+        test = (';'.join(optionlist[1:]))
     else:
         test = "N/A"
 
